@@ -6,17 +6,17 @@
 //
 //  --------------------------------------------------------------------------
 //
-//  Svg2Xaml is free software: you can redistribute it and/or modify it under 
-//  the terms of the GNU Lesser General Public License as published by the 
-//  Free Software Foundation, either version 3 of the License, or (at your 
+//  Svg2Xaml is free software: you can redistribute it and/or modify it under
+//  the terms of the GNU Lesser General Public License as published by the
+//  Free Software Foundation, either version 3 of the License, or (at your
 //  option) any later version.
 //
-//  Svg2Xaml is distributed in the hope that it will be useful, but WITHOUT 
-//  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
-//  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public 
+//  Svg2Xaml is distributed in the hope that it will be useful, but WITHOUT
+//  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+//  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
 //  License for more details.
-//  
-//  You should have received a copy of the GNU Lesser General Public License 
+//
+//  You should have received a copy of the GNU Lesser General Public License
 //  along with Svg2Xaml. If not, see <http://www.gnu.org/licenses/>.
 //
 //  --------------------------------------------------------------------------
@@ -223,7 +223,7 @@ namespace Svg2Xaml
           }
         }
       }
-                      
+
       XAttribute mask_attribute = drawableBaseElement.Attribute("mask");
       if(mask_attribute != null)
       {
@@ -244,67 +244,67 @@ namespace Svg2Xaml
       if(display_attribute != null)
         switch(display_attribute.Value)
         {
-          case "inline": 
+          case "inline":
             Display = SvgDisplay.Inline;
             break;
 
-          case "block": 
+          case "block":
             Display = SvgDisplay.Block;
             break;
 
-          case "list-item": 
+          case "list-item":
             Display = SvgDisplay.ListItem;
             break;
 
-          case "run-in": 
+          case "run-in":
             Display = SvgDisplay.RunIn;
             break;
 
-          case "compact": 
+          case "compact":
             Display = SvgDisplay.Compact;
             break;
 
-          case "marker": 
+          case "marker":
             Display = SvgDisplay.Marker;
             break;
 
-          case "table": 
+          case "table":
             Display = SvgDisplay.Table;
             break;
 
-          case "inline-table": 
+          case "inline-table":
             Display = SvgDisplay.InlineTable;
             break;
 
-          case "table-row-group": 
+          case "table-row-group":
             Display = SvgDisplay.TableRowGroup;
             break;
 
-          case "table-header-group": 
+          case "table-header-group":
             Display = SvgDisplay.TableHeaderGroup;
             break;
 
-          case "table-footer-group": 
+          case "table-footer-group":
             Display = SvgDisplay.TableFooterGroup;
             break;
 
-          case "table-row": 
+          case "table-row":
             Display = SvgDisplay.TableRow;
             break;
 
-          case "table-column-group": 
+          case "table-column-group":
             Display = SvgDisplay.TableColumnGroup;
             break;
 
-          case "table-column": 
+          case "table-column":
             Display = SvgDisplay.TableColumn;
             break;
 
-          case "table-cell": 
+          case "table-cell":
             Display = SvgDisplay.TableCell;
             break;
 
-          case "table-caption": 
+          case "table-caption":
             Display = SvgDisplay.TableCaption;
             break;
 
@@ -409,6 +409,16 @@ namespace Svg2Xaml
         pen.DashStyle = new DashStyle(sda, sdo);
       }
 
+      if (this.StrokeLinejoin != default(SvgStrokeLinejoin))
+      {
+        pen.LineJoin = this.StrokeLinejoin.ToPenLineJoin();
+      }
+      if (this.StrokeLinecap != default(SvgStrokeLinecap))
+      {
+        pen.StartLineCap = this.StrokeLinecap.ToPenLineCap();
+        pen.EndLineCap = this.StrokeLinecap.ToPenLineCap();
+      }
+
       return pen;
     }
 
@@ -447,12 +457,12 @@ namespace Svg2Xaml
 
       // Apply fill-rule...
 
-      if(geometry.GetArea() > 0.0)
+      if (geometry.GetArea() > 0.0)
       {
         PathGeometry path_geometry = Geometry.Combine(geometry, Geometry.Empty, GeometryCombineMode.Exclude, null);
-        if(FillRule == SvgFillRule.Evenodd)
+        if (FillRule == SvgFillRule.Evenodd)
           path_geometry.FillRule = System.Windows.Media.FillRule.EvenOdd;
-        else if(FillRule == SvgFillRule.Nonzero)
+        else if (FillRule == SvgFillRule.Nonzero)
           path_geometry.FillRule = System.Windows.Media.FillRule.Nonzero;
         geometry = path_geometry;
       }
@@ -492,7 +502,7 @@ namespace Svg2Xaml
 
       if((opacity_mask == null) && (bitmap_effect == null))
         return drawing;
-        
+
 
       DrawingGroup drawing_group = new DrawingGroup();
       drawing_group.BitmapEffect = bitmap_effect;
